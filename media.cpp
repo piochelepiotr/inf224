@@ -5,7 +5,7 @@ Media::Media()
 
 }
 
-Media::Media(std::string const& multiMediaName,std::string const& pathToMedia) : m_multiMediaName(multiMediaName), m_pathToMedia(pathToMedia)
+Media::Media(std::string const& name,std::string const& file) : m_name(name), m_file(file)
 {
 	
 }
@@ -15,28 +15,28 @@ Media::~Media()
 
 }
 
-void Media::setMultiMediaName(std::string const& multiMediaName)
+void Media::setName(std::string const& name)
 {
-	m_multiMediaName = multiMediaName;
+	m_name = name;
 }
 
-void Media::setPathToMedia(std::string const& pathToMedia)
+void Media::setFile(std::string const& file)
 {
-	m_pathToMedia = pathToMedia;
+	m_file = file;
 }
 
-std::string Media::getMultiMediaName() const
+std::string Media::getName() const
 {
-	return m_multiMediaName;
+	return m_name;
 }
 
-std::string Media::getPathToMedia() const
+std::string Media::getFile() const
 {
-	return m_pathToMedia;
+	return m_file;
 }
 
 void Media::display(std::ostream &ostream) const
 {
-	ostream << "Le nom est : " << m_multiMediaName << " et est dans le fichier " << m_pathToMedia << std::endl;
+	ostream << "Le nom est : " << m_name << " et est dans le fichier " << m_file << std::endl;
 }
 

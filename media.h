@@ -8,18 +8,16 @@ class Media
 {
 public:
 	Media();
-	Media(std::string const& multiMediaName,std::string const& pathToMedia);
+	Media(std::string const& name,std::string const& file);
 	~Media();
-	void setMultiMediaName(std::string const& multiMediaName);
-	void setPathToMedia(std::string const& pathToMedia);
-	std::string getMultiMediaName() const;
-	std::string getPathToMedia() const;
-	virtual void info(std::ostream & ostream) const;
+	void setName(std::string const& name);
+	void setFile(std::string const& file);
+	std::string getName() const;
+	std::string getFile() const;
 	virtual void play() const=0;
-	
-
+	void display(std::ostream &ostream) const;
 protected:
-	std::string m_multiMediaName;
-	std::string m_pathToMedia;
+	std::string m_name;
+	std::string m_file;
 };
 	
