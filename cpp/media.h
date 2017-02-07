@@ -14,10 +14,16 @@ public:
 	void setFile(std::string const& file);
 	std::string getName() const;
 	std::string getFile() const;
+	void setHeigth(int height) { m_height = height; }
+	void setWidth(int width) { m_width = width; }
+	int getHeight() const { return m_height; }
+	int getWidth() const { return m_width; }
 	virtual void play() const=0;
 	void display(std::ostream &ostream) const;
 protected:
 	std::string m_name;
 	std::string m_file;
+	int m_height;
+	int m_width;
 };
 	

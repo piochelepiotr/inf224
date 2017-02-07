@@ -2,7 +2,7 @@
 
 Video::Video() : Media()
 {
-	m_heigth = 0;
+	m_height = 0;
 	m_width = 0;
 	m_length = 0;
 }
@@ -17,7 +17,7 @@ Video::Video(std::string const& name,std::string const& file,int height, int wid
 void Video::play() const
 {
 	std::string cmd = "mpv "+m_file+" &";
-	system(cmd);
+	system(cmd.c_str());
 }
 
 void Video::display(std::ostream &ostream) const

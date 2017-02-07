@@ -7,7 +7,7 @@ Image::Image() : Media()
 	m_width = 0;
 }
 
-Image::Image(std::string const& name,std::string const& file,int height = 0, int width = 0) : Media(name,file)
+Image::Image(const std::string & name,const std::string & file,int height, int width) : Media(name,file)
 {
 	m_height = height;
 	m_width = width;
@@ -15,7 +15,7 @@ Image::Image(std::string const& name,std::string const& file,int height = 0, int
 
 void Image::play() const
 {
-	std::string cmd = "imagej "+m_file+" &";
+	std::string cmd = "ristretto "+m_file+" &";
 	system(cmd.c_str());
 }
 

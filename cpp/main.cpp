@@ -3,8 +3,8 @@
 
 int main()
 {
-	Media *medias [] = { new Image("photo char", "char.jpg"),
-		new Image("photo voiture","voiture.png")};
+	Media *medias [] = { new Image("photo char", "char.jpg",1,1),
+		new Image("photo voiture","voiture.png",1,1)};
 	int length = 2;
 	//Media *image = new Image("name","~/inf224/voiture.png");
 	//image->play();

@@ -6,7 +6,7 @@ class Image : public Media
 {
 public:
 	Image();
-	Image(std::string const& name,std::string const& file,int height = 0, int width = 0);
+	Image(const std::string & name,const std::string & file,int height = 0, int width = 0);
 	void setHeigth(int height) { m_height = height; }
 	void setWidth(int width) { m_width = width; }
 	int getHeight() const { return m_height; }
