@@ -12,7 +12,7 @@ Media::Media(std::string const& name,std::string const& file) : m_name(name), m_
 
 Media::~Media()
 {
-
+    std::cout << "destruction de l'objet " << m_name << std::endl;
 }
 
 void Media::setName(std::string const& name)

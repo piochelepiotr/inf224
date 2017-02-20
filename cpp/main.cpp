@@ -1,16 +1,14 @@
 #include <iostream>
 #include "image.h"
+#include "group.h"
 
 int main()
 {
-	Media *medias [] = { new Image("photo char", "char.jpg",1,1),
-		new Image("photo voiture","voiture.png",1,1)};
-	int length = 2;
-	//Media *image = new Image("name","~/inf224/voiture.png");
-	//image->play();
-	for(int i = 0 ; i < length ; i++)
-	{
-		medias[i]->play();
-	}
+    Group group("Images");
+    MediaPtr image1(new Image("image char", "char.jpg",1,1));
+    MediaPtr image2(new Image("image voiture", "voiture.png",1,1));
+    group.push_back(image1);
+    group.push_back(image2);
+    group.display();
 	return 0;
 }

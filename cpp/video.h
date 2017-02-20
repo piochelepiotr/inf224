@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MEDIA_H
+#define MEDIA_H
 #include "media.h"
 /*! Class for modeling video */
 
@@ -16,3 +17,4 @@ protected:
 	int m_length;
 };
 
+#endif

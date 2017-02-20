@@ -7,6 +7,11 @@ Image::Image() : Media()
 	m_width = 0;
 }
 
+Image::~Image()
+{
+
+}
+
 Image::Image(const std::string & name,const std::string & file,int height, int width) : Media(name,file)
 {
 	m_height = height;

@@ -7,9 +7,9 @@
 ###########################################
 
 ## Nom du programme (doit correspondre au fichier qui contient main())
-PROG = RemoteControl
+PROG = MainWindow
 ## Fichiers sources .java
-SOURCES = RemoteControl.java
+SOURCES = MainWindow.java
 ## Compilateur Java
 #
 JC = javac
