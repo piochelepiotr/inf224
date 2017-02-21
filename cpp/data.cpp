@@ -138,3 +138,59 @@ bool Data::processRequest(cppu::TCPConnection& cnx, const std::string& request, 
     return true;
 }
 
+void Data::loadFromFile(std::string const& fileName)
+{
+    std::istream file(fileName);
+    if(!file)
+    {
+        std::cerr << "Impossible d'ouvrir le fichier "<<fileName<<std::endl;
+        return;
+    }
+    while(file)
+    {
+        std::string mediaString;
+        std::getLine(file,mediaString,'\n');
+        if(file.fail())
+        {
+            std::cerr << "Erreur lors de la lecture de "<<fileName<<std::endl;
+            return;
+        }
+        else
+        {
+            MediaPtr media;
+            std::stringstream mediaStream(mediaString);
+            getLine(mediaStream,classOfMedia,'/');
+            if(classOfMedia.compare("film") == 0)
+            {
+                media = new Film(mediaStream);
+            }
+            else if(classOfMedia.compare("video") == 0)
+            {
+                media = new Video(mediaStream);
+            }
+            else if(classOfMedia.compare("image") == 0)
+            {
+                media = new Image(mediaStream);
+            }
+            else
+            {
+                std::cerr << "classe inconnue : "<< classOfMedia << std::endl;
+            }
+            m_medias.push_back(media);
+        }
+    }
+}
+
+void Data::saveToFile(std::string const& fileName)
+{
+    std::ostream file(fileName);
+    if(!file)
+    {
+        std::cerr << "Impossible d'ouvrir le fichier "<<fileName<<std::endl;
+        return;
+    }
+    for(auto it : m_medias)
+    {
+        it->write(file);
+    }
+}

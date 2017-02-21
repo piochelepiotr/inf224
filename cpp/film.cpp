@@ -5,6 +5,13 @@ Film::Film()
     m_chapters = 0;
 }
 
+Film::Film(std::stringstream & stream)
+{
+    m_chapters = 0;
+    getLine(stream,m_name,'/');
+    getLine(stream,m_file,'/');
+}
+
 Film::Film(std::string const& name,std::string const& file,int height, int width,int length) : Video(name,file,height,width, length)
 {
     m_chapters = 0;

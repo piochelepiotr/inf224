@@ -10,6 +10,7 @@ class Film : public Video
         int m_size;
     public:
 	    Film();
+        Film(std::stringstream & stream);
 	    ~Film();
 	    Film(std::string const& name,std::string const& file,int height, int width,int length);
         void setChapters(int *chapters, int size);
