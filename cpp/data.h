@@ -3,6 +3,7 @@
 
 #include "group.h"
 #include <map>
+#include "tcpserver.h"
 
 class Data
 {
@@ -19,9 +20,10 @@ class Data
         void deleteGroup(std::string const& name);
         void deleteMedia(std::string const& name);
         void addMediaToGroup(std::string const& media, std::string const& group);
-        void displayMedia(std::string const& name) const;
-        void displayGroup(std::string const& name) const;
+        void displayMedia(std::ostream &ostream, std::string const& name) const;
+        void displayGroup(std::ostream &ostream, std::string const& name) const;
         void playMedia(std::string const& name) const;
+        bool processRequest(cppu::TCPConnection& cnx, const std::string& request, std::string& response);
 };
 
 #endif

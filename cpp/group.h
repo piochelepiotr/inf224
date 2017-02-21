@@ -5,6 +5,7 @@
 #include <string>
 #include "media.h"
 #include <memory>
+#include <iostream>
 
 class Group : public std::list<MediaPtr>
 {
@@ -12,7 +13,7 @@ class Group : public std::list<MediaPtr>
         std::string m_name;
     public:
         Group(std::string const& name);
-        void display() const;
+        void display(std::ostream &ostream) const;
         std::string const& getName() const { return m_name; }
 };
 

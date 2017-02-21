@@ -1,6 +1,7 @@
 #include "data.h"
 #include "film.h"
 #include "image.h"
+#include <sstream>
 
 Data::Data()
 {
@@ -47,12 +48,12 @@ void Data::addMediaToGroup(std::string const& media, std::string const& group)
     }
 }
 
-void Data::displayMedia(std::string const& name) const
+void Data::displayMedia(std::ostream &ostream, std::string const& name) const
 {
     std::map<std::string,MediaPtr>::const_iterator it = m_medias.find(name);
     if(it != m_medias.end())
     {
-        it->second->display(std::cout);
+        it->second->display(ostream);
     }
     else
     {
@@ -60,12 +61,12 @@ void Data::displayMedia(std::string const& name) const
     }
 }
 
-void Data::displayGroup(std::string const& name) const
+void Data::displayGroup(std::ostream &ostream, std::string const& name) const
 {
     std::map<std::string,GroupPtr>::const_iterator it = m_groups.find(name);
     if(it != m_groups.end())
     {
-        it->second->display();
+        it->second->display(ostream);
     }
     else
     {
@@ -110,5 +111,30 @@ void Data::deleteMedia(std::string const& name)
         it->second->remove(m_medias[name]);
     }
     m_medias.erase(name);
+}
+
+
+bool Data::processRequest(cppu::TCPConnection& cnx, const std::string& request, std::string& response)
+{ 
+    std::stringstream requestStream;
+    std::string action, name;
+    std::getline(requestStream,action,'/');
+    std::getline(requestStream,name,'/');
+    if(action.compare("playMedia") == 0)
+    {
+        playMedia(name);
+        response = "playing...";
+    }
+    else if(action.compare("displayMedia") == 0)
+    {
+        std::stringstream responseStream;
+        displayMedia(responseStream, name);
+    }
+    else if(action.compare("displayGroup") == 0)
+    {
+        std::stringstream responseStream;
+        displayGroup(responseStream, name);
+    }
+    return true;
 }
 
