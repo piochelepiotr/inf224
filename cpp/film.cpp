@@ -8,8 +8,8 @@ Film::Film()
 Film::Film(std::stringstream & stream)
 {
     m_chapters = 0;
-    getLine(stream,m_name,'/');
-    getLine(stream,m_file,'/');
+    //std::getline(stream,m_name,'/');
+    //std::getline(stream,m_file,'/');
 }
 
 Film::Film(std::string const& name,std::string const& file,int height, int width,int length) : Video(name,file,height,width, length)

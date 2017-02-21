@@ -20,9 +20,8 @@ class Data
         void deleteGroup(std::string const& name);
         void deleteMedia(std::string const& name);
         void addMediaToGroup(std::string const& media, std::string const& group);
-        void displayMedia(std::ostream &ostream, std::string const& name) const;
-        void displayGroup(std::ostream &ostream, std::string const& name) const;
-        void playMedia(std::string const& name) const;
+        void display(std::ostream &ostream, std::string const& name) const;
+        void play(std::string const& name) const;
         bool processRequest(cppu::TCPConnection& cnx, const std::string& request, std::string& response);
         void loadFromFile(std::string const& fileName);
         void saveToFile(std::string const& fileName);

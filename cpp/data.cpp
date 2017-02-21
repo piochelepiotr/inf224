@@ -48,35 +48,30 @@ void Data::addMediaToGroup(std::string const& media, std::string const& group)
     }
 }
 
-void Data::displayMedia(std::ostream &ostream, std::string const& name) const
+void Data::display(std::ostream &ostream, std::string const& name) const
 {
-    std::map<std::string,MediaPtr>::const_iterator it = m_medias.find(name);
+    auto it = m_medias.find(name);
     if(it != m_medias.end())
     {
         it->second->display(ostream);
     }
     else
     {
-        std::cout << "Media " << name << " introuvable" << std::endl;
+        auto it = m_groups.find(name);
+        if(it != m_groups.end())
+        {
+            it->second->display(ostream);
+        }
+        else
+        {
+            std::cout << "Groupe " << name << " introuvable" << std::endl;
+        }
     }
 }
 
-void Data::displayGroup(std::ostream &ostream, std::string const& name) const
+void Data::play(std::string const& name) const
 {
-    std::map<std::string,GroupPtr>::const_iterator it = m_groups.find(name);
-    if(it != m_groups.end())
-    {
-        it->second->display(ostream);
-    }
-    else
-    {
-        std::cout << "Groupe " << name << " introuvable" << std::endl;
-    }
-}
-
-void Data::playMedia(std::string const& name) const
-{
-    std::map<std::string,MediaPtr>::const_iterator it = m_medias.find(name);
+    auto it = m_medias.find(name);
     if(it != m_medias.end())
     {
         it->second->play();
@@ -85,7 +80,6 @@ void Data::playMedia(std::string const& name) const
     {
         std::cout << "Media " << name << " introuvable" << std::endl;
     }
-
 }
 
 void Data::deleteGroup(std::string const& name)
@@ -116,30 +110,31 @@ void Data::deleteMedia(std::string const& name)
 
 bool Data::processRequest(cppu::TCPConnection& cnx, const std::string& request, std::string& response)
 { 
-    std::stringstream requestStream;
+    std::cout << "request = " << request << std::endl;
+    std::stringstream requestStream(request);
     std::string action, name;
     std::getline(requestStream,action,'/');
     std::getline(requestStream,name,'/');
-    if(action.compare("playMedia") == 0)
+    if(action.compare("play") == 0)
     {
-        playMedia(name);
+        play(name);
         response = "playing...";
     }
-    else if(action.compare("displayMedia") == 0)
+    else if(action.compare("display") == 0)
     {
         std::stringstream responseStream;
-        displayMedia(responseStream, name);
+        display(responseStream, name);
     }
-    else if(action.compare("displayGroup") == 0)
+    else
     {
-        std::stringstream responseStream;
-        displayGroup(responseStream, name);
+        std::cout << "commande inconnue : " << action << std::endl;
     }
     return true;
 }
 
 void Data::loadFromFile(std::string const& fileName)
 {
+    /*
     std::istream file(fileName);
     if(!file)
     {
@@ -158,8 +153,9 @@ void Data::loadFromFile(std::string const& fileName)
         else
         {
             MediaPtr media;
+            std::string classOfMedia;
             std::stringstream mediaStream(mediaString);
-            getLine(mediaStream,classOfMedia,'/');
+            std::getline(mediaStream,classOfMedia,'/');
             if(classOfMedia.compare("film") == 0)
             {
                 media = new Film(mediaStream);
@@ -178,12 +174,12 @@ void Data::loadFromFile(std::string const& fileName)
             }
             m_medias.push_back(media);
         }
-    }
+    }*/
 }
 
 void Data::saveToFile(std::string const& fileName)
 {
-    std::ostream file(fileName);
+    /*std::ostream file(fileName);
     if(!file)
     {
         std::cerr << "Impossible d'ouvrir le fichier "<<fileName<<std::endl;
@@ -192,5 +188,5 @@ void Data::saveToFile(std::string const& fileName)
     for(auto it : m_medias)
     {
         it->write(file);
-    }
+    }*/
 }
