@@ -1,4 +1,5 @@
 #include "film.h"
+#include <sstream>
 
 Film::Film()
 {
@@ -7,9 +8,30 @@ Film::Film()
 
 Film::Film(std::stringstream & stream)
 {
-    m_chapters = 0;
-    //std::getline(stream,m_name,'/');
-    //std::getline(stream,m_file,'/');
+    std::string str;
+    std::getline(stream,str,'/');
+    m_name = str;
+    std::getline(stream,str,'/');
+    m_file = str;
+    std::getline(stream,str,'/');
+    m_width = std::stoi(str);
+    std::getline(stream,str,'/');
+    m_height = std::stoi(str);
+    std::getline(stream,str,'/');
+    m_length = std::stoi(str);
+    m_size = 0;
+    std::stringstream copyStream(stream.str());
+    while(copyStream)
+    {
+        std::getline(copyStream,str,'/');
+        m_size++;
+    }
+    m_chapters = new int[m_size];
+    for(int i = 0; i < m_size; i++)
+    {
+        std::getline(stream,str,'/');
+        m_chapters[i] = std::stoi(str);
+    }
 }
 
 Film::Film(std::string const& name,std::string const& file,int height, int width,int length) : Video(name,file,height,width, length)
@@ -52,4 +74,18 @@ int *copy(int *origin, int size)
         newTab[i] = origin[i];
     }
     return newTab;
+}
+
+void Film::serialize(std::ostream &ostream) const
+{
+	ostream <<
+		"film/" << m_name <<
+		"/" << m_file <<
+		"/" << m_width << "/" << m_height <<
+		"/" << m_length << "/";
+    for(int i = 0; i < m_size; i++)
+    {
+        ostream << m_chapters[i] << "/";
+    }
+    ostream << std::endl;
 }

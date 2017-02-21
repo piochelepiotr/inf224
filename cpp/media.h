@@ -5,11 +5,12 @@
 
 /*! Class for modeling multimedia objects */
 
+class Data;
+
 class Media
 {
+    friend Data;
 public:
-	Media();
-	Media(std::string const& name,std::string const& file);
 	~Media();
 	void setName(std::string const& name);
 	void setFile(std::string const& file);
@@ -21,7 +22,10 @@ public:
 	int getWidth() const { return m_width; }
 	virtual void play() const=0;
 	void display(std::ostream &ostream) const;
+	virtual void serialize(std::ostream &ostream) const;
 protected:
+	Media();
+	Media(std::string const& name,std::string const& file);
 	std::string m_name;
 	std::string m_file;
 	int m_height;

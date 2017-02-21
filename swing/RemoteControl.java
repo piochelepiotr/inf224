@@ -90,7 +90,8 @@ class SearchAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e)
     {
-		RemoteControl.display("Search results: "+ Client.send("display/"+RemoteControl.getInputText()));
+        String response = Client.send("display/"+RemoteControl.getInputText());
+		RemoteControl.display("Search results: "+ response);
 		
 	}
 	

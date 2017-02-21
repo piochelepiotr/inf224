@@ -124,6 +124,7 @@ bool Data::processRequest(cppu::TCPConnection& cnx, const std::string& request, 
     {
         std::stringstream responseStream;
         display(responseStream, name);
+        response = responseStream.str();
     }
     else
     {
@@ -132,25 +133,15 @@ bool Data::processRequest(cppu::TCPConnection& cnx, const std::string& request, 
     return true;
 }
 
-void Data::loadFromFile(std::string const& fileName)
+void Data::fromString(std::string const& medias)
 {
-    /*
-    std::istream file(fileName);
-    if(!file)
-    {
-        std::cerr << "Impossible d'ouvrir le fichier "<<fileName<<std::endl;
-        return;
-    }
-    while(file)
+    std::stringstream mediasStream(medias);
+    while(mediasStream)
     {
         std::string mediaString;
-        std::getLine(file,mediaString,'\n');
-        if(file.fail())
-        {
-            std::cerr << "Erreur lors de la lecture de "<<fileName<<std::endl;
-            return;
-        }
-        else
+        std::getline(mediasStream,mediaString,'\n');
+        std::cout << "media : "<<mediaString<< std::endl;
+        if(mediaString.compare("") != 0)
         {
             MediaPtr media;
             std::string classOfMedia;
@@ -158,35 +149,31 @@ void Data::loadFromFile(std::string const& fileName)
             std::getline(mediaStream,classOfMedia,'/');
             if(classOfMedia.compare("film") == 0)
             {
-                media = new Film(mediaStream);
+                media = MediaPtr(new Film(mediaStream));
             }
             else if(classOfMedia.compare("video") == 0)
             {
-                media = new Video(mediaStream);
+                media = MediaPtr(new Video(mediaStream));
             }
             else if(classOfMedia.compare("image") == 0)
             {
-                media = new Image(mediaStream);
+                media = MediaPtr(new Image(mediaStream));
             }
             else
             {
                 std::cerr << "classe inconnue : "<< classOfMedia << std::endl;
             }
-            m_medias.push_back(media);
+            m_medias[media->getName()] = media;
         }
-    }*/
+    }
 }
 
-void Data::saveToFile(std::string const& fileName)
+std::string Data::serialize()
 {
-    /*std::ostream file(fileName);
-    if(!file)
-    {
-        std::cerr << "Impossible d'ouvrir le fichier "<<fileName<<std::endl;
-        return;
-    }
+    std::stringstream serialized;
     for(auto it : m_medias)
     {
-        it->write(file);
-    }*/
+        it.second->serialize(serialized);
+    }
+    return serialized.str();
 }

@@ -37,6 +37,10 @@ std::string Media::getFile() const
 
 void Media::display(std::ostream &ostream) const
 {
-	ostream << "Le nom est : " << m_name << " et est dans le fichier " << m_file << std::endl;
+	ostream << "Le nom est : " << m_name << " et est dans le fichier " << m_file << "..........";
 }
 
+void Media::serialize(std::ostream &ostream) const
+{
+	ostream << "media/" << m_name << "/" << m_file << std::endl;
+}

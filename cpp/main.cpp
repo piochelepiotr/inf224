@@ -17,6 +17,11 @@ int main()
     data->createImage("image voiture", "voiture.png",1,1);
     data->createGroup("images");
     data->addMediaToGroup("image char","images");
+    std::cout << data->serialize() << std::endl;
+    std::shared_ptr<Data> data2(new Data());
+    data2->fromString(data->serialize());
+    std::cout << data2->serialize() << std::endl;
+
     // cree le TCPServer
     std::shared_ptr<cppu::TCPServer> server(new cppu::TCPServer());
 
