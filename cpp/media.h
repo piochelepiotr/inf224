@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <memory>
 
 /*! Class for modeling multimedia objects */
 
@@ -27,3 +28,4 @@ protected:
 	int m_width;
 };
 	
+typedef std::shared_ptr<Media> MediaPtr;

@@ -6,8 +6,6 @@
 #include "media.h"
 #include <memory>
 
-typedef std::shared_ptr<Media> MediaPtr;
-
 class Group : public std::list<MediaPtr>
 {
     private:
@@ -17,5 +15,7 @@ class Group : public std::list<MediaPtr>
         void display() const;
         std::string const& getName() const { return m_name; }
 };
+
+typedef std::shared_ptr<Group> GroupPtr;
 
 #endif
